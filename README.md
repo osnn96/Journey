@@ -8,3 +8,4 @@ I am currently focusing on mastering data engineering and software engineering s
 ## Content
 
 -I've completed the Pandas tutorial on Kaggle, where I explored the following key topics: DataFrames, Data cleaning, Aggregation, Merging Data
+-Currently learning Numpy
