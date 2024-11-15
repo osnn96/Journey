@@ -1,5 +1,6 @@
 # Journey
-In this repository, I will be sharing my progress through my career path
+
+In this repository, I will be sharing my progress through my career path.
 
 ## Current Focus
 
@@ -7,6 +8,5 @@ I am currently focusing on mastering data engineering and software engineering s
 
 ## Content
 
--I've completed the Pandas tutorial on Kaggle, where I explored the following key topics: DataFrames, Data cleaning, Aggregation, Merging Data
-
--Currently learning Numpy
+- **Pandas**: Completed on Kaggle.
+- **Numpy**: Currently learning and enhancing my Numpy skills.
