@@ -1,12 +1,16 @@
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, Query, Path, HTTPException
+from pydantic import BaseModel, Field
+from typing import Optional
+from starlette import status
+
 
 app = FastAPI()
 
 drivers_db = [
-    {'id' : 1, 'driver': 'Osman', "title" : "num1_driver", "team": "IUC-Racing"},
-    {'id' : 2, 'driver': 'Mert', "title" : "num2_driver", "team": "IUC-Racing"},
-    {'id' : 3, 'driver': 'Frog', "title" : "num2_driver", "team": "DogGo-Racing"},
-    {'id' : 4, 'driver': 'Dog', "title" : "num1_driver", "team": "DogGo-Racing"}
+    {'id' : 1, 'driver': 'Osman', "title" : "num1_driver", "team": "IUC-Racing", "rating": 9},
+    {'id' : 2, 'driver': 'Mert', "title" : "num2_driver", "team": "IUC-Racing", "rating": 9},
+    {'id' : 3, 'driver': 'Frog', "title" : "num2_driver", "team": "DogGo-Racing", "rating": 2},
+    {'id' : 4, 'driver': 'Dog', "title" : "num1_driver", "team": "DogGo-Racing", "rating": 1},
 ]
 
 @app.get("/")
@@ -16,6 +20,24 @@ async def root():
 @app.get("/drivers")
 async def drivers():
     return drivers_db
+
+@app.get("/drivers/rating")
+async def drivers_by_rating(rating: int = Query(gt=0, lt=10)):
+    selected_drivers = []
+    for selected in drivers_db:
+        if selected.get('rating') == rating:
+            selected_drivers.append(selected)
+    return selected_drivers 
+ 
+
+
+@app.get("/drivers/{id}")
+async def drivers(id: int = Path(gt=0, lt=3)):
+    for driver in drivers_db:
+        if driver.get('id') == id:
+            return driver
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Driver not found")
+
 
 @app.get("/drivers/byteam/{team}")
 async def drivers(team: str):
